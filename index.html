@@ -1,0 +1,509 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AWeSome Step Functions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/css/zenburn.css">
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/print/paper.css' : 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+      h1, h2, h3 {
+        text-transform: none !important;
+        font-variant: small-caps !important;
+      }
+      .slides img {
+        max-height: 55vh !important;
+      }
+      .aws-orange {
+        color: #e9903a !important;
+      }
+      .left {
+        text-align: left !important;
+      }
+      .pros {
+        color: green !important;
+      }
+      .pros::before {
+        content: '+ ' !important;
+      }
+      .cons {
+        color: red !important;
+      }
+      .cons::before {
+        content: '- ' !important;
+      }
+      .octocat {
+        width: 35px !important;
+        height: 35px !important;
+        border: none !important;
+        background: white !important;
+        box-shadow: none !important;
+        vertical-align: middle !important;
+        padding: 10px !important;
+        border-radius: 50px !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+      }
+      footer {
+        position: absolute !important;
+        bottom: 10px !important;
+        left: 10px !important;
+      }
+      footer img {
+        height: 25px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>
+            <span class="aws-orange">AW</span>e<span style="color: #e9903a;">S</span>ome<br />
+            <span class="aws-orange">Step Functions</span>
+          </h1>
+        </section>
+        <section>
+          <h2>Who am I</h2>
+          <p class="left">
+            <img alt="Me" src="images/me.png" style="float: right;" height="200" width="200"/><br />
+            <a href="https://github.com/ChristopheBougere">
+              <img alt="Github" src="images/octocat.png" class="octocat" />
+              <span class="aws-orange">Christophe Bougère</span>
+            </a><br /><br />
+            <a href="https://github.com/airware">
+              <img alt="Github" src="images/octocat.png" class="octocat" />
+              Full Stack Developer at Airware
+            </a><br />
+          </p>
+        </section>
+        <section>
+          <section>
+            <h2>Agenda</h2>
+            <img alt="Agenda" src="images/agenda.png" />
+          </section>
+          <section>
+            <h2>Meetup definition</h2>
+            <pre><code class="json">{
+  "StartAt": "Introduction",
+  "States": {
+    "Introduction": {
+      "Type": "Pass",
+      "Catch": [ {
+        "ErrorEquals": [ "Not interested" ],
+        "Next": "Escape"
+      } ],
+      "Next": "Presentation"
+    },
+    "Escape": {
+      "Type": "Pass",
+      "End": true
+    },
+    "Presentation": {
+      "Type": "Pass",
+      "Next": "Questions ?"
+    },
+    "Questions ?": {
+      "Type" : "Choice",
+      "Choices": [ {
+        "Variable": "$.crystalClear",
+        "BooleanEquals": true,
+        "Next": "Answer"
+      } ],
+      "Default": "Have fun"
+    },
+    "Answer": {
+      "Type": "Pass",
+      "Next": "Questions ?"
+    },
+    "Have fun": {
+      "Type": "Parallel",
+      "Next": "Return home and start building awesome stuff",
+      "Branches": [ {
+        "StartAt": "Have a beer",
+        "States": {
+          "Have a beer": {
+            "Type": "Pass",
+            "End": true
+          }
+        }
+      }, {
+        "StartAt": "Eat some pizza",
+        "States": {
+          "Eat some pizza": {
+            "Type": "Pass",
+            "End": true
+          }
+        }
+      }, {
+        "StartAt": "Network",
+        "States": {
+          "Network": {
+            "Type": "Pass",
+            "End": true
+          }
+        }
+      } ]
+    },
+    "Return home and start building awesome stuff": {
+      "Type": "Pass",
+      "End": true
+    }
+  }
+}</code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>What is an orchestrator?</h2>
+          <img alt="Lego bricks" src="images/lego.gif" />
+          <p>Component coordination layer</p>
+        </section>
+        <section>
+          <section>
+            <h2>Why do I need an orchestrator?</h2>
+            <br />
+            <p>TL;DR: To do what FaaS can't</p>
+          </section>
+          <section>
+            <h2>Manage states</h2>
+            <br />
+            <ul>
+              <li>Manual step (validation link in an email)</li>
+              <li>Send an email 24 hours after subscription</li>
+              <li>Asynchronous task</li>
+            </ul>
+          </section>
+          <section>
+            <h2>De-complexify a process</h2>
+            <ul>
+              <li>Segregate tasks (fetch data, compute, save results)</li>
+              <li>Ease debugging</li>
+              <li>Adapt your resources (memory, timeout)</li>
+              <li>Reuse your functions across services</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Gather different compute layers</h2>
+            <ul>
+              <li>Lambda</li>
+              <li>Batch/Fargate job</li>
+              <li>Activity (custom task)</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Other solutions</h2>
+          </section>
+          <section>
+            <h3>Invoke a function from within another one</h3>
+            <div class="left">
+              <p class="pros">use only FaaS</p>
+              <p class="cons">code should be focusing on business logic, not on what should happen after</p>
+              <p class="cons">strong dependency between your functions</p>
+            </div>
+          </script></section>
+          <section>
+            <h3>Build your own state management system</h3>
+            <div class="left">
+              <p class="pros">could be fun (see <a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor</a>)</p>
+              <p class="cons">need to develop and maintain (don't you have higher priorities? &#129300;)</p>
+            </div>
+          </section>
+          <section>
+            <h3>Use a non-serverless solution</h3>
+            <img alt="Batman" src="images/batman.jpg" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Language overview</h2>
+            <p>
+              <span class="aws-orange">A</span>mazon <span class="aws-orange">S</span>tate <span class="aws-orange">L</span>anguage<br />
+              <a href="https://states-language.net/spec.html">https://states-language.net/spec.html</a>
+            </p>
+          </section>
+          <section>
+            <h3>State machine</h3>
+            <pre style="float: left; width: 45%;"><code class="json">{
+  "StartAt": "FirstState",
+  "TimeoutSeconds": 3600,
+  "States": {
+    "FirstState": {
+      "Type": "Pass",
+      "End": true
+    }
+  }
+}</code></pre>
+            <br />
+            <ul style="float: right; width: 45%;">
+              <li>Entry point</li>
+              <li>List of states</li>
+              <li>Configuration (timeout)</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Task state</h3>
+            <pre><code class="json">{
+  "Type": "Task",
+  "Resource": "arn:aws:states:us-east-1:123456789012:activity:HelloWorld",
+  "Next": "NextState"
+}</code></pre>
+            <br />
+            <p>Works with Lambda and Activity</p>
+          </section>
+          <section>
+            <h3>Choice state</h3>
+            <div style="float: left; width: 60%;">
+              <pre><code class="json">{
+  "Type": "Choice",
+  "Choices": [ {
+    "Not": {
+      "Variable": "$.type",
+      "StringEquals": "Private"
+    },
+    "Next": "Public"
+  } ],
+  "Default": "DefaultState"
+}</code></pre>
+            </div>
+            <div style="float: right; width: 40%;">
+              <br />
+              <br />
+              <ul>
+                <li>Use of JSON path</li>
+                <li>19 comparison operators</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h3>Wait state</h3>
+            <div style="float: left; width: 60%;">
+              <pre><code class="json">{
+  "Type": "Wait",
+  "Seconds": 10,
+  "Next": "NextState"
+}</code></pre>
+            </div>
+            <p style="float: right; width: 40%;">
+              Time/Timestamp fixed or from the input (JSON path)
+            </p>
+          </section>
+          <section>
+            <h3>Parallel state</h3>
+            <div style="float: left; width: 50%;">
+              <pre><code class="json">{
+  "Type": "Parallel",
+  "Branches": [ {
+    "StartAt": "Worker1",
+    "States": {
+      "Worker1": {
+        "Type": "Task",
+      }
+    }
+  }, {
+    "StartAt": "Worker2",
+    "States": {
+      "Worker2": {
+        "Type": "Task",
+      }
+    }
+  } ]
+}</code></pre>
+            </div>
+            <div style="float: right; width: 50%;">
+              <br /><br />
+              <ul>
+                <li>Parallelisation for unrelated tasks.</li>
+                <li>Each branch contains a sub state machine.</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h3>And many others...</h3>
+            <ul>
+              <li>Pass (useful to bind data)</li>
+              <li>Wait (interval can be dynamic)</li>
+              <li>Succeed</li>
+              <li>Fail</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Common fields</h3>
+            <img alt="Ćommon fields" src="./images/common-fields.png" />
+          </section>
+          <section>
+            <h3>Reference paths</h3>
+            <div style="float: left; width: 70%;">
+              <pre><code class="javascript">{ // Input
+  "title": "Numbers to add",
+  "numbers": { "val1": 3, "val2": 4 }
+}</code></pre>
+              <pre><code class="javascript">{ // State definition
+  "InputPath": "$.numbers",
+  "ResultPath": "$.sum"
+}</code></pre>
+              <pre><code class="javascript">{ // Output
+  "title": "Numbers to add",
+  "numbers": { "val1": 3, "val2": 4 },
+  "sum": 7
+}</code></pre>
+            </div>
+            <div style="float: right; width: 30%;">
+              <br /><br />
+              <ul>
+                <li>InputPath</li>
+                <li>ResultPath</li>
+                <li>OutputPath</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h3>Retry/Catch</h3>
+            <pre><code class="javascript">{
+  "Retry": [ {
+    "ErrorEquals": [ "ErrorA", "ErrorB" ],
+    "IntervalSeconds": 1,
+    "BackoffRate": 2,
+    "MaxAttempts": 2
+  }, {
+    "ErrorEquals": [ "ErrorC" ],
+    "IntervalSeconds": 5
+  } ],
+  "Catch": [ {
+    "ErrorEquals": [ "States.ALL" ],
+    "Next": "Z"
+  } ]
+}</code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>A few example of what we've built</h2>
+          </section>
+          <section>
+            <h3>Data classification algorithm</h3>
+            <p>Was executed once a day on EC2, now divided in 8 lambdas<p>
+            <ul>
+              <li>Event driven</li>
+              <li>Cleaner</li>
+              <li>Easier to maintain and debug</li>
+              <li>Visual logic</li>
+              <li>Reprocessing workflow easily done by reassembling lambdas</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Wrap a long/heavy job with Batch</h3>
+            <p class="pros">Stateless</p>
+            <p class="cons">Long to start</p>
+            <p class="cons">Need to wait and loop in the state machine</p>
+          </section>
+          <section>
+            <h3>Wrap a long/heavy job with Fargate</h3>
+            <p class="pros">Stateless</p>
+            <p class="cons">More limited (no EFS access)</p>
+          </section>
+          <section>
+            <h3>Wrap a long/heavy job with Activities</h3>
+            <p class="pros">Can't be faster</p>
+            <p class="cons">Need a full time running poller</p>
+          </section>
+          <section>
+            <h3>Reuse generic functions in many workflows</h3>
+            <ul>
+              <li>Push notification, slack, email</li>
+              <li>Error management</li>
+              <li>Scale up/down resources before/after your process (DynamoDB capacities)</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Tooling</h2>
+          </section>
+          <section>
+            <h3>Serverless framework integration</h3>
+            <a href="https://github.com/horike37/serverless-step-functions">https://github.com/horike37/serverless-step-functions</a>
+            <pre><code class="bash">$ serverless plugin install -n serverless-step-function</code></pre>
+          </section>
+          <section>
+            <h3>State machine validation</h3>
+            <a href="https://github.com/airware/asl-validator">https://github.com/airware/asl-validator</a>
+            <pre><code class="bash">$ npm install -g asl-validator
+$ asl-validator --json-path definition.json
+✓ State machine definition is valid</code></pre>
+          </section>
+          <section>
+            <h3>Local execution</h3>
+            <a href="https://github.com/airware/stepfunctions-local">https://github.com/airware/stepfunctions-local</a>
+            <pre><code class="bash">$ npm install -g stepfunctions-local
+$ stepfunctions-local start
+
+$ aws stepfunctions --endpoint http://localhost:4584
+  create-state-machine
+  --name my-state-machine
+  --definition '{"Comment":"A Hello World example of the Amazon States Language using a Pass state","StartAt":"HelloWorld","States":{"HelloWorld":{"Type":"Pass","End":true}}}'
+  --role-arn arn:aws:iam::0123456789:role/service-role/MyRole
+
+$ aws stepfunctions --endpoint http://localhost:4584
+  start-execution
+  --state-machine-arn arn:aws:states:local:0123456789:stateMachine:my-state-machine
+  --name my-execution
+  --input '{"comment":"I am a great input !"}'</code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>My whishlist to AWS</h2>
+          <ul>
+            <li>Easy way to monitor executions (aggregate all the CloudWatch streams)</li>
+            <li>Access the execution ID (add a context object)</li>
+            <li>Dynamic parallel branches</li>
+            <li>Provide a tmp storage available from all the execution</li>
+            <li>Directly trigger executions from API Gateway, SNS, S3 or CloudWatch triggers, ...</li>
+            <li>Defining reusable sub state machines</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Readings</h2>
+          <ul>
+            <li><a href="https://serverless.com/blog/how-to-manage-your-aws-step-functions-with-serverless">How to manage your AWS Step Functions With Serverless</a></li>
+            <li><a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor: A microservices orchestrator</a></li>
+            <li><a href="https://aws.amazon.com/blogs/devops/using-aws-step-functions-state-machines-to-handle-workflow-driven-aws-codepipeline-actions/">Using AWS Step Functions State Machines to Handle Workflow-Driven AWS CodePipeline Actions</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Questions?</h3>
+          <img alt="Questions?" src="./images/questions.gif" />
+        </section>
+      </div>
+      <footer>
+        <img alt="Airware" src="./images/airware.svg" />
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/js/head.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        slideNumber: 'c/t',
+        transition: 'concave',
+        history: true,
+        dependencies: [
+          { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/plugin/markdown/marked.js' },
+          { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/plugin/markdown/markdown.js' },
+          { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  </body>
+</html>
