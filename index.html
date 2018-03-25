@@ -69,12 +69,12 @@
       <div class="slides">
         <section>
           <h1>
-            <span class="aws-orange">AW</span>e<span style="color: #e9903a;">S</span>ome<br />
+            <span class="aws-orange">AW</span>e<span class="aws-orange">S</span>ome<br />
             <span class="aws-orange">Step Functions</span>
           </h1>
         </section>
         <section>
-          <h2>Who am I</h2>
+          <h2>Who am I?</h2>
           <p class="left">
             <img alt="Me" src="images/me.png" style="float: right;" height="200" width="200"/><br />
             <a href="https://github.com/ChristopheBougere">
@@ -178,22 +178,22 @@
             <h2>Manage states</h2>
             <br />
             <ul>
-              <li>Manual step (validation link in an email)</li>
-              <li>Send an email 24 hours after subscription</li>
+              <li>Manual step (Ex: validation link in an email)</li>
+              <li>Send an email 24 hours after user's subscription</li>
               <li>Asynchronous task</li>
             </ul>
           </section>
           <section>
-            <h2>De-complexify a process</h2>
+            <h2>Simplify a process</h2>
             <ul>
-              <li>Segregate tasks (fetch data, compute, save results)</li>
+              <li>Segregate activities (fetch data, compute, save results)</li>
               <li>Ease debugging</li>
               <li>Adapt your resources (memory, timeout)</li>
-              <li>Reuse your functions across services</li>
+              <li>Reuse your functions across your services</li>
             </ul>
           </section>
           <section>
-            <h2>Gather different compute layers</h2>
+            <h2>Assemble different compute layers</h2>
             <ul>
               <li>Lambda</li>
               <li>Batch/Fargate job</li>
@@ -216,8 +216,10 @@
           <section>
             <h3>Build your own state management system</h3>
             <div class="left">
+              <p class="pros">suits your exact requirements</p>
               <p class="pros">could be fun (see <a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor</a>)</p>
-              <p class="cons">need to develop and maintain (don't you have higher priorities? &#129300;)</p>
+              <p class="cons">requires time to develop and maintain</p>
+              <p class="cons">don't you have higher priorities?! &#129300;</p>
             </div>
           </section>
           <section>
@@ -389,7 +391,7 @@
         </section>
         <section>
           <section>
-            <h2>A few example of what we've built</h2>
+            <h2>A few examples of what we've built</h2>
           </section>
           <section>
             <h3>Data classification algorithm</h3>
@@ -463,21 +465,23 @@ $ aws stepfunctions --endpoint http://localhost:4584
           </section>
         </section>
         <section>
-          <h2>My whishlist to AWS</h2>
+          <h2>Whishlist to AWS</h2>
           <ul>
-            <li>Easy way to monitor executions (aggregate all the CloudWatch streams)</li>
-            <li>Access the execution ID (add a context object)</li>
-            <li>Dynamic parallel branches</li>
-            <li>Provide a tmp storage available from all the execution</li>
-            <li>Directly trigger executions from API Gateway, SNS, S3 or CloudWatch triggers, ...</li>
+            <li>Better monitoring (aggregate CloudWatch streams)</li>
+            <li>Access to the execution ID (add a context object)</li>
+            <li>Dynamic and non-waiting parallel branches</li>
+            <li>Greater event size</li>
+            <li><code class="bash">tmp</code> space available from all the execution</li>
+            <li>Ability to trigger execution from other services (API Gateway, SNS, S3 or CloudWatch, etc.)</li>
             <li>Defining reusable sub state machines</li>
+            <li>Official local execution support</li>
           </ul>
         </section>
         <section>
           <h2>Readings</h2>
           <ul>
-            <li><a href="https://serverless.com/blog/how-to-manage-your-aws-step-functions-with-serverless">How to manage your AWS Step Functions With Serverless</a></li>
-            <li><a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor: A microservices orchestrator</a></li>
+            <li><a href="https://serverless.com/blog/how-to-manage-your-aws-step-functions-with-serverless">How to manage your AWS Step Functions With Serverless?</a></li>
+            <li><a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor: a microservices orchestrator</a></li>
             <li><a href="https://aws.amazon.com/blogs/devops/using-aws-step-functions-state-machines-to-handle-workflow-driven-aws-codepipeline-actions/">Using AWS Step Functions State Machines to Handle Workflow-Driven AWS CodePipeline Actions</a></li>
           </ul>
         </section>
