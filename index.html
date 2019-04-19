@@ -54,6 +54,12 @@
         margin-left: 15px !important;
         margin-right: 15px !important;
       }
+      .done {
+        color: green !important;
+      }
+      .done::after {
+        content: ' ✓' !important;
+      }
       footer {
         position: absolute !important;
         bottom: 10px !important;
@@ -435,19 +441,21 @@
           </section>
           <section>
             <h3>Serverless framework integration</h3>
-            <a href="https://github.com/horike37/serverless-step-functions">https://github.com/horike37/serverless-step-functions</a>
-            <pre><code class="bash">$ serverless plugin install -n serverless-step-function</code></pre>
+            <a href="https://github.com/horike37/serverless-step-functions">serverless-step-functions</a><br />
+            <pre><code class="bash">$ serverless invoke stepf --name MyStepFunction --path my-input.json</code></pre>
           </section>
           <section>
             <h3>State machine validation</h3>
-            <a href="https://github.com/airware/asl-validator">https://github.com/airware/asl-validator</a>
+            <a href="https://github.com/airware/asl-validator">asl-validator</a>
             <pre><code class="bash">$ npm install -g asl-validator
 $ asl-validator --json-path definition.json
 ✓ State machine definition is valid</code></pre>
+            <a href="https://github.com/piercus/serverless-stepfunction-validator#readme">serverless-stepfunction-validator</a>
+            <pre><code class="bash">$ serverless validate</code></pre>
           </section>
           <section>
             <h3>Local execution</h3>
-            <a href="https://github.com/airware/stepfunctions-local">https://github.com/airware/stepfunctions-local</a>
+            <a href="https://github.com/airware/stepfunctions-local">stepfunctions-local</a>
             <pre><code class="bash">$ npm install -g stepfunctions-local
 $ stepfunctions-local start
 
@@ -462,24 +470,49 @@ $ aws stepfunctions --endpoint http://localhost:4584
   --state-machine-arn arn:aws:states:local:0123456789:stateMachine:my-state-machine
   --name my-execution
   --input '{"comment":"I am a great input !"}'</code></pre>
+            <a href="https://hub.docker.com/r/amazon/aws-stepfunctions-local">And now officially supported by AWS 👏</a>
           </section>
         </section>
         <section>
-          <h2>Whishlist to AWS</h2>
-          <ul>
-            <li>Better monitoring (aggregate CloudWatch streams)</li>
-            <li>Access to the execution ID (add a context object)</li>
-            <li>Dynamic and non-waiting parallel branches</li>
-            <li>Greater event size</li>
-            <li><code class="bash">tmp</code> space available from all the execution</li>
-            <li>Ability to trigger execution from other services (API Gateway, SNS, S3 or CloudWatch, etc.)</li>
-            <li>Defining reusable sub state machines</li>
-            <li>Official local execution support</li>
-          </ul>
+          <section>
+            <h2>Whishlist to AWS</h2>
+            <ul>
+              <li>Better monitoring (aggregate CloudWatch streams)</li>
+              <li>Access to the execution ID (add a context object)</li>
+              <li>Dynamic and non-waiting parallel branches</li>
+              <li>Greater event size</li>
+              <li><code class="bash">tmp</code> space available from all the execution</li>
+              <li>Ability to trigger execution from other services (API Gateway, SNS, S3 or CloudWatch, etc.)</li>
+              <li>Defining reusable sub state machines</li>
+              <li>Official local execution support</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Update 04/2019</h2>
+            <ul>
+              <li class="done">Ability to trigger execution from other services (API Gateway, SNS, S3 or CloudWatch, etc.)</li>
+              <li class="done">Official local execution support</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Update 04/2019</h2>
+            <p>Adding integration with services:</p>
+            <ul>
+              <li>AWS Batch</li>
+              <li>Amazon DynamoDB</li>
+              <li>Amazon ECS/Fargate</li>
+              <li>Amazon SNS</li>
+              <li>Amazon SQS</li>
+              <li>AWS Glue</li>
+              <li>Amazon SageMaker</li>
+            </ul>
+          </section>
         </section>
         <section>
           <h2>Readings</h2>
           <ul>
+            <li><a href="https://epsagon.com/blog/hitchhikers-guide-to-aws-step-functions/">Hitchhiker’s Guide to AWS Step Functions
+            </a></li>
             <li><a href="https://serverless.com/blog/how-to-manage-your-aws-step-functions-with-serverless">How to manage your AWS Step Functions With Serverless?</a></li>
             <li><a href="https://medium.com/netflix-techblog/netflix-conductor-a-microservices-orchestrator-2e8d4771bf40">Netflix Conductor: a microservices orchestrator</a></li>
             <li><a href="https://aws.amazon.com/blogs/devops/using-aws-step-functions-state-machines-to-handle-workflow-driven-aws-codepipeline-actions/">Using AWS Step Functions State Machines to Handle Workflow-Driven AWS CodePipeline Actions</a></li>
